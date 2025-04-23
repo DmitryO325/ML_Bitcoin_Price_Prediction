@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sb
+from sklearn.metrics import ConfusionMatrixDisplay
 
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
@@ -147,6 +148,10 @@ for i in range(len(models)):
     print(f'ROC-AUC на обучающей выборке: {metrics.roc_auc_score(y_train, models[i].predict_proba(X_train)[:, 1])}')
     print(f'ROC-AUC на тестовой выборке: {metrics.roc_auc_score(y_test, models[i].predict_proba(X_test)[:, 1])}')
     print()
+
+'Построим матрицу ошибок'
+ConfusionMatrixDisplay.from_estimator(models[0], X_test, y_test)
+plt.show()
 
 '''Вывод:
    XGBClassifier сильно переобучается
